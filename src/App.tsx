@@ -1,18 +1,22 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './Styles/GlobalStyles';
-import Layout from './Components/Layout';
+import Routes from './routes';
 import dark from './Styles/Themes/dark';
 import light from './Styles/Themes/light';
 
-const App: React.FC = () =>{
-    return(
+
+import ContentHeader from './Components/ContentHeader';
+
+
+const App: React.FC = () => {
+    return (
         <ThemeProvider theme={dark}>
             <GlobalStyles />
-            <Layout />
-            
+                <Routes />
+
         </ThemeProvider>
-        
+
     );
 }
 export default App;

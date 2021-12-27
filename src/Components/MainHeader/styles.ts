@@ -9,7 +9,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 .4rem;
+    padding: 0 1.8rem;
     border-bottom: 1px solid ${props => props.theme.colors.gray}
 `;
 
