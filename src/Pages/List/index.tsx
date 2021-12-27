@@ -33,17 +33,6 @@ const List: React.FC = () => {
     const [filterYear, setFilterYear] = useState<string>(String(new Date().getFullYear()));
     const [frequencyFilterSelected, setFrequencyFilterSelected] = useState(['recorrente', 'eventual']);
 
-    const titleOptions = useMemo(() => {
-        return type === 'entry-balance' ?
-            { title: 'Entradas', lineColor: '#F7931B' } :
-            { title: 'Saídas', lineColor: '#E44C4E' }
-    }, [type]);
-
-    const listData = useMemo(() => {
-        return type === 'entry-balance' ? gains : expenses;
-    }, [type])
-
-
     const months = useMemo(() => {
 
         return listOfMonths.map((month, index) => {
@@ -53,17 +42,32 @@ const List: React.FC = () => {
             }
         });
 
-    }, [])
+    }, []);
 
+    const pageData = useMemo(() => {
+        if(type === 'entry-balance'){
+            return{
+                title: 'Entradas',
+                lineColor: '#F7931B',
+                listData: gains 
+            }
+        } else {
+            return{
+                title: 'Saídas',
+                lineColor: '#E44C4E',
+                listData: expenses
+            }
+        }
+
+    }, [type]);
 
 
     const years = useMemo(() => {
         let uniqueYears: number[] = [];
 
-        listData.forEach(item => {
+        pageData.listData.forEach(item => {
             const date = new Date(item.date);
             const year = date.getFullYear();
-            console.log('ano: ' + year);
             if (!uniqueYears.includes(year)) {
                 uniqueYears.push(year);
             }
@@ -76,7 +80,7 @@ const List: React.FC = () => {
             }
         })
 
-    }, [listData])
+    }, [pageData.listData])
 
     const handleFrequencyClick = (frequency: string) =>{
         const alreadySelected = frequencyFilterSelected.findIndex(item => item === frequency);
@@ -92,9 +96,8 @@ const List: React.FC = () => {
 
     useEffect(() => {
 
-        const filtradedData = listData.filter(item => {
+        const filtradedData = pageData.listData.filter(item => {
             const date = new Date(item.date);
-            const day = date.getDate();
             const year = String(date.getFullYear());
             const mouth = String(date.getMonth() + 1);
 
@@ -117,18 +120,22 @@ const List: React.FC = () => {
 
         setData(formatedData);
 
-    }, [filterYear, filterMouth, listData, frequencyFilterSelected]);
+    }, [filterYear, filterMouth, pageData.listData, frequencyFilterSelected]);
 
-    
-
-
-
-
+   
     return (
         <Container>
-            <ContentHeader title={titleOptions.title} lineColor={titleOptions.lineColor}>
-                <SelectInput options={months} onChange={(e) => setFilterMouth(e.target.value)} defaultValue={filterMouth} />
-                <SelectInput options={years} onChange={(e) => setFilterYear(e.target.value)} defaultValue={filterYear} />
+            <ContentHeader title={pageData.title} lineColor={pageData.lineColor}>
+                <SelectInput
+                    options={months}
+                    onChange={(e) => setFilterMouth(e.target.value)}
+                    defaultValue={filterMouth} 
+                />
+                <SelectInput 
+                    options={years}
+                    onChange={(e) => setFilterYear(e.target.value)}
+                    defaultValue={filterYear} 
+                />
             </ContentHeader>
 
             <Filters>

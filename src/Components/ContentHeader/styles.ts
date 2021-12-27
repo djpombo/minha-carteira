@@ -1,4 +1,4 @@
-import styled, { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 interface ITitleContainerProps {
     lineColor: string;
