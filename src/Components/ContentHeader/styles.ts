@@ -10,7 +10,7 @@ export const Container = styled.div`
     height: 5rem;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: .3rem;
     
 `;
 

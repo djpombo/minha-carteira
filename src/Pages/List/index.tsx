@@ -29,8 +29,8 @@ const List: React.FC = () => {
 
     const { type } = useParams();//faz o casting do que vem na url como parametro
     const [data, setData] = useState<IData[]>([]);
-    const [filterMouth, setFilterMouth] = useState<string>(String(new Date().getMonth() + 1));
-    const [filterYear, setFilterYear] = useState<string>(String(new Date().getFullYear()));
+    const [filterMouth, setFilterMouth] = useState<number>(new Date().getMonth() + 1);
+    const [filterYear, setFilterYear] = useState<number>(new Date().getFullYear());
     const [frequencyFilterSelected, setFrequencyFilterSelected] = useState(['recorrente', 'eventual']);
 
     const months = useMemo(() => {
@@ -45,14 +45,14 @@ const List: React.FC = () => {
     }, []);
 
     const pageData = useMemo(() => {
-        if(type === 'entry-balance'){
-            return{
+        if (type === 'entry-balance') {
+            return {
                 title: 'Entradas',
-                lineColor: '#F7931B',
-                listData: gains 
+                lineColor: '#4E41F0',
+                listData: gains
             }
         } else {
-            return{
+            return {
                 title: 'Saídas',
                 lineColor: '#E44C4E',
                 listData: expenses
@@ -82,15 +82,33 @@ const List: React.FC = () => {
 
     }, [pageData.listData])
 
-    const handleFrequencyClick = (frequency: string) =>{
+    const handleFrequencyClick = (frequency: string) => {
         const alreadySelected = frequencyFilterSelected.findIndex(item => item === frequency);
 
-        if(alreadySelected >= 0){
+        if (alreadySelected >= 0) {
             const filtered = frequencyFilterSelected.filter(item => item !== frequency);
             setFrequencyFilterSelected(filtered);
         } else {
-            
+
             setFrequencyFilterSelected((prev) => [...prev, frequency]); //prev vem de previous, ou seja, estado anterior
+        }
+    }
+
+    const handleFilterMonth = (month: string) => {
+        try {
+            const parseMonth = parseInt(month);
+            setFilterMouth(parseMonth);
+        } catch (error) {
+            throw new Error('Invalid Month entry');
+        }
+    }
+
+    const handleFilterYear = (year: string) => {
+        try {
+            const parseYear = parseInt(year);
+            setFilterYear(parseYear);
+        } catch (error) {
+            throw new Error('Invalid Year entry');
         }
     }
 
@@ -98,8 +116,8 @@ const List: React.FC = () => {
 
         const filtradedData = pageData.listData.filter(item => {
             const date = new Date(item.date);
-            const year = String(date.getFullYear());
-            const mouth = String(date.getMonth() + 1);
+            const year = date.getFullYear();
+            const mouth = date.getMonth() + 1;
 
             return mouth === filterMouth && year === filterYear && frequencyFilterSelected.includes(item.frequency);
         })
@@ -122,19 +140,19 @@ const List: React.FC = () => {
 
     }, [filterYear, filterMouth, pageData.listData, frequencyFilterSelected]);
 
-   
+
     return (
         <Container>
             <ContentHeader title={pageData.title} lineColor={pageData.lineColor}>
                 <SelectInput
                     options={months}
-                    onChange={(e) => setFilterMouth(e.target.value)}
-                    defaultValue={filterMouth} 
+                    onChange={(e) => handleFilterMonth(e.target.value)}
+                    defaultValue={filterMouth}
                 />
-                <SelectInput 
+                <SelectInput
                     options={years}
-                    onChange={(e) => setFilterYear(e.target.value)}
-                    defaultValue={filterYear} 
+                    onChange={(e) => handleFilterYear(e.target.value)}
+                    defaultValue={filterYear}
                 />
             </ContentHeader>
 
