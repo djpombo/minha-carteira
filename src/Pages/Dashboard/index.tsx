@@ -8,6 +8,7 @@ import SelectInput from '../../Components/SelectInput';
 import WalletBox from '../../Components/WalletBox';
 import MessageBox from '../../Components/MessageBox';
 import PieChartBox from '../../Components/PieChartBox';
+import HistoryBox from '../../Components/HistoryBox';
 
 import expenses from '../../repositories/expenses';
 import gains from '../../repositories/gains';
@@ -23,8 +24,8 @@ const Dashboard: React.FC = () => {
 
     const [filterMonth, setFilterMonth] = useState<number>(new Date().getMonth() + 1);
     const [filterYear, setFilterYear] = useState<number>(new Date().getFullYear());
-    
-    
+
+
     const months = useMemo(() => {
 
         return listOfMonths.map((month, index) => {
@@ -137,7 +138,7 @@ const Dashboard: React.FC = () => {
         }
     }, [getsBalance]);
 
-    const relationExpenseVersusGains = useMemo(()=>{
+    const relationExpenseVersusGains = useMemo(() => {
         const total = totalGains + totalExpenses;
 
         const percentGains = (totalGains / total) * 100;
@@ -148,7 +149,7 @@ const Dashboard: React.FC = () => {
                 name: "Entradas",
                 value: totalGains,
                 percent: Number(percentGains.toFixed(1)),
-                color: "#F7931B" 
+                color: "#F7931B"
             },
             {
                 name: "Saidas",
@@ -161,6 +162,56 @@ const Dashboard: React.FC = () => {
         return data;
 
     }, [totalGains, totalExpenses]);
+
+    const historyData = useMemo(() => {
+        return listOfMonths.map((_, month) => {
+            let amountEntry = 0;
+
+            gains.forEach(gain => {
+                const date = new Date(gain.date);
+                const gainMonth = date.getMonth();
+                const gainYear = date.getFullYear();
+
+                if (gainMonth === month && gainYear === filterYear) {
+                    try {
+                        amountEntry += Number(gain.amount);
+                    } catch {
+                        throw new Error('Invalid amount entry, acpeted only numbers');
+                    }
+                }
+            });
+
+            let amountOutput = 0;
+
+            expenses.forEach(expense => {
+                const date = new Date(expense.date);
+                const expenseMonth = date.getMonth();
+                const expenseYear = date.getFullYear();
+
+                if (expenseMonth === month && expenseYear === filterYear) {
+                    try {
+                        amountOutput += Number(expense.amount);
+                    } catch {
+                        throw new Error('Invalid amount entry, acpeted only numbers');
+                    }
+                }
+            });
+
+            return {
+                monthNumber: month,
+                month: listOfMonths[month].substring(0, 3),
+                amountEntry,
+                amountOutput
+            }
+        })
+        .filter(item => {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+
+            return (filterYear === currentYear && item.monthNumber <= currentMonth) || (filterYear < currentYear)
+            
+        });
+    }, [filterYear]);
 
     const handleFilterMonth = (month: string) => {
         try {
@@ -229,6 +280,12 @@ const Dashboard: React.FC = () => {
                 />
 
                 <PieChartBox data={relationExpenseVersusGains} />
+
+                <HistoryBox
+                    data={historyData}
+                    lineColorAmountEntry='#F7931B'
+                    lineColorAmountOutput='#E44C4E'
+                />
 
             </Content>
         </Container>
