@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Container, Content } from './styles';
 
 import ContentHeader from '../../Components/ContentHeader';
@@ -305,23 +305,23 @@ const Dashboard: React.FC = () => {
 
     }, [filterYear, filterMonth]);
 
-    const handleFilterMonth = (month: string) => {
+    const handleFilterMonth = useCallback((month: string) => {
         try {
             const parseMonth = parseInt(month);
             setFilterMonth(parseMonth);
         } catch {
             throw new Error('Invalid Month entry');
         }
-    }
+    }, []);
 
-    const handleFilterYear = (year: string) => {
+    const handleFilterYear = useCallback((year: string) => {
         try {
             const parseYear = parseInt(year);
             setFilterYear(parseYear);
         } catch {
             throw new Error('Invalid Year entry');
         }
-    }
+    }, []);
 
     return (
         <Container>
