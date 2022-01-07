@@ -1,5 +1,4 @@
 import { Container, ToggleLabel, ToggleSelector } from './styles';
-import { useState } from 'react';
 
 interface IToggleProps {
     labelLeft: string;
@@ -9,8 +8,7 @@ interface IToggleProps {
 }
 
 const Toggle: React.FC<IToggleProps> = ({labelLeft, labelRight, checked, onChange}) => {
-    const [online, setOnline] = useState(false);
-
+    
     return (
         <Container>
             <ToggleLabel>{labelLeft}</ToggleLabel>

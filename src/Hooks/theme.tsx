@@ -27,7 +27,6 @@ const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
 const ThemeProvider: React.FC =({ children }) => {
 
-    
     const [theme, setTheme] = useState<ITheme>(() =>{
         const themeSaved = localStorage.getItem("@minha-carteira: tema");
 

@@ -59,3 +59,30 @@ export const MenuItemLink = styled.a`
         margin-right: .4rem;
     }
 `;
+
+export const MenuItemButton = styled.button`
+    color: ${props => props.theme.colors.info};
+    
+    border: none;
+    display: flex;
+    align-items: center;
+    
+    cursor: pointer;
+    transition: .6s;
+
+    margin: .4rem 0;
+
+    font-size: 1.05rem;
+    
+    
+    &:hover{
+        opacity: .7;
+    }
+
+    > svg {
+        font-size: 1.2rem;
+        margin-right: .4rem;
+    }
+    background: none;
+
+`;
