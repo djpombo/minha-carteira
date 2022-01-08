@@ -12,7 +12,7 @@ const Routes: React.FC = () => {
     const { logged } = useAuth();
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             {
                 logged ? <App /> : <AuthRoutes />
             }
