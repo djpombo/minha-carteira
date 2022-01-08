@@ -1,17 +1,22 @@
-export default {
-    title: 'dark',
+const dark = () => {
+    return (
+        {
+            title: 'dark',
 
-    colors: {
-        primary: '#1B1F38',
-        secondary: '#252A48',
-        tertiary: '#313862',
+            colors: {
+                primary: '#1B1F38',
+                secondary: '#252A48',
+                tertiary: '#313862',
 
-        white: '#FFF',
-        black: '#000',
-        gray: '#BFBFBF',
+                white: '#FFF',
+                black: '#000',
+                gray: '#BFBFBF',
 
-        success: '#4E41F0',
-        warining: '#E44C4E',
-        info: '#F7931B'
-    },
+                success: '#4E41F0',
+                warining: '#E44C4E',
+                info: '#F7931B'
+            },
+        }
+    );
 }
+export default dark;
