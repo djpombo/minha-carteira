@@ -1,4 +1,4 @@
-const light = () =>( {
+export default {
     title: 'light',
 
     colors: {
@@ -14,5 +14,4 @@ const light = () =>( {
         warining: '#FF6961',
         info: '#3B5998'
     },
-});
-export default light;
+}
