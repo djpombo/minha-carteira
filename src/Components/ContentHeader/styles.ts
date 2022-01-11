@@ -12,6 +12,7 @@ export const Container = styled.div`
     justify-content: space-between;
     margin-bottom: .3rem;
     
+    
 `;
 
 export const TitleContainer = styled.div<ITitleContainerProps>`
@@ -24,6 +25,17 @@ export const TitleContainer = styled.div<ITitleContainerProps>`
             display: block;
             width: 3.5rem;
             border-bottom: 10px solid ${props => props.lineColor};
+        }
+    }
+
+    @media(max-width: 600px){
+        font-size: .7rem;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 3.5rem;
+            border-bottom: 1px solid ${props => props.lineColor};
         }
     }
 `;

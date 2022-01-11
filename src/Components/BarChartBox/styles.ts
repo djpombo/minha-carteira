@@ -1,8 +1,23 @@
-import styled from "styled-components";
+import { Welcome } from './../MainHeader/styles';
+import styled, {keyframes} from "styled-components";
 
 interface ILegendProps{
     color: string;
 }
+
+const animate = keyframes`
+    0%{
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    50%{
+        opacity: .3;
+    }
+    100%{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+`;
 
 export const Container = styled.div`
     width: 48%;
@@ -14,6 +29,17 @@ export const Container = styled.div`
     color: ${props => props.theme.colors.white};
 
     display: flex;
+
+    @media(max-width: 770px){
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        height: auto;
+    }
+
+    animation: ${animate} .5s;
+
 `;
 
 export const SideLeft = styled.aside`
@@ -47,6 +73,12 @@ export const LegendContainer = styled.ul`
         background-color: ${props => props.theme.colors.tertiary};
         
     }
+
+    @media(max-width: 770px){
+        display: flex;
+        
+        
+    }
 `;
 
 export const Legend = styled.li<ILegendProps>`
@@ -69,6 +101,12 @@ export const Legend = styled.li<ILegendProps>`
 
     > span {
         margin-left: .3rem;
+    }
+
+    @media(max-width: 770px){
+        > span {
+            margin-right: .5rem;
+        }
     }
 `;
 

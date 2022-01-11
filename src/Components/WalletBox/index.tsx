@@ -35,10 +35,10 @@ const WalletBox: React.FC<IWalletBoxProps> = ({ title, amount, footerlabel, icon
         <Container color={color}>
             <span>{title}</span>
             <h1>
+                <strong>R$ </strong>
                 <CountUp
                     end={amount}
                     duration={1.75}
-                    prefix='R$ '
                     decimals={2}
                     decimal=','
                     separator='.'

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 
+
 export const Container = styled.div`
     grid-area: MH;
 
@@ -18,3 +19,10 @@ export const Profile = styled.div`
 `;
 export const Welcome = styled.span ``;
 export const UserName = styled.span ``;
+
+export const ToggleDisplay = styled.div`
+
+    //display: none;
+
+`;
+

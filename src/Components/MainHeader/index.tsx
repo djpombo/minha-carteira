@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
-import { Container, Profile, Welcome, UserName } from './styles';
+import { Container, Profile, Welcome, UserName, ToggleDisplay } from './styles';
 import emojis from '../../Utils/emojis';
 import Toggle from '../Toggle';
+
 
 import { useTheme } from '../../Hooks/theme';
 
@@ -24,12 +25,14 @@ const MainHeader: React.FC = () => {
 
     return (
         <Container>
+        <ToggleDisplay>
             <Toggle 
                 labelLeft='light'
                 labelRight='dark'
                 checked={darkTheme}
                 onChange={handleChangeTheme}
             />
+        </ToggleDisplay>
 
             <Profile>
             <Welcome>Olá, {emoji}</Welcome><br />

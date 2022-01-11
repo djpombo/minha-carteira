@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface IContainerProps{
+interface IContainerProps {
     color: string;
 }
 
@@ -34,5 +34,49 @@ export const Container = styled.div<IContainerProps>`
         position: absolute;
         bottom: .8rem;
     }
+
+    @media(max-width: 770px){
+        > span {
+            font-size: .8rem;
+            
+        }
+
+        > h1 {
+            word-wrap: break-word;
+            font-size: 1.2rem;
+
+            > strong {
+                display: inline-block;
+                width: 100%;
+                font-size: .6rem;
+            }
+        }
+
+        > small {
+            word-wrap: break-word;
+            font-size: .5rem;
+        }
+    }
+
+    @media(max-width: 420px){
+        width: 100%;
+
+        > h1 {
+            display: flex;
+            font-size: 1.4rem;
+            > strong {
+                position: initial;
+                width: auto;
+                font-size: 1.4rem;
+            }
+            
+            > strong::after{
+                display: inline-block;
+                content: ' ';
+                width: 1px;
+            }
+        }
+    }
+    
 `;
 

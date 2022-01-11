@@ -12,9 +12,7 @@ interface ISelectOptions {
 }
 
 const Selectinput: React.FC<ISelectOptions> = ({ options, onChange, defaultValue }) => {
-
-    //console.log(options[1].label)
-
+    
     return (
         <Container>
             <select onChange={onChange} defaultValue={defaultValue}>

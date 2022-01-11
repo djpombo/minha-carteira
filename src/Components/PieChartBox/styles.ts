@@ -1,4 +1,18 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const animate = keyframes`
+    0%{
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    50%{
+        opacity: .3;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+`;
 
 interface ILegendProps{
     color: string;
@@ -16,7 +30,13 @@ export const Container = styled.div`
     padding: .5rem .8rem;
 
     display: flex;
-    
+
+    animation: ${animate} .5s;
+
+    @media(max-width: 770px){
+        display: flex;
+        width: 100%;
+    }    
 `;
 
 export const SideLeft = styled.aside`
@@ -24,6 +44,12 @@ export const SideLeft = styled.aside`
 
     > h2 {
         margin-bottom: 1.8rem;
+    }
+
+    @media(max-width: 420px){
+        > h2 {
+            font-size: 1rem;
+        }
     }
 `;
 
@@ -69,11 +95,30 @@ export const Legend = styled.li<ILegendProps>`
     > span {
         margin-left: .3rem;
     }
+
+    @media(max-width: 420px){
+        > div {
+            width: 2rem;
+            height: 2rem;
+            border-radius: .1rem;
+
+            font-size: .6rem;
+            line-height: 2rem;
+        }
+
+        > span {
+            font-size: 1rem;
+        }
+    }
 `;
 
 export const SideRight = styled.main`
     display: flex;
     flex: 1;
     justify-content: center;
+
+    @media(max-width: 770px){
+        height: 100%;
+    }
     
 `;

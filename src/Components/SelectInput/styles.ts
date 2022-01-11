@@ -8,5 +8,13 @@ export const Container = styled.div`
         margin-left: .7rem;
                
         }
+    
+    @media(max-width: 600px){
+        > select {
+            padding: .5rem .5rem;
+            border-radius: .2rem;
+            margin-left: .1rem;
+        }
+    }
 
 `;
